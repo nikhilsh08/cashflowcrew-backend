@@ -8,7 +8,11 @@ import cookieParser from "cookie-parser";
 import compression from "compression";
 import userRoutes from "./routes/cashflow/user-routes";
 import paymentRoutes from "./routes/cashflow/payment-routes";
+const PORT = process.env.PORT || 3000;
 
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 // Apply middleware first
 app.use(express.json());
 app.use(cookieParser());

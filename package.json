@@ -8,14 +8,17 @@
   },
   "license": "ISC",
   "author": "",
-  "type": "module",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "nodemon src/index.ts",
+    "start": "node dist/index.js",
+    "dev": "nodemon src/index.ts",
     "build": "rimraf dist && tsc",
     "ts.check": "tsc --project tsconfig.json",
     "add-build": "git add dist",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "18.x"
   },
   "devDependencies": {
     "@types/compression": "^1.8.1",
@@ -44,9 +47,9 @@
     "pg-sdk-node": "https://phonepe.mycloudrepo.io/public/repositories/phonepe-pg-sdk-node/releases/v2/phonepe-pg-sdk-node.tgz",
     "uuid": "^11.1.0"
   },
-    "pre-commit": [
-      "ts.check",
-      "build",
-      "add-build"
+  "pre-commit": [
+    "ts.check",
+    "build",
+    "add-build"
   ]
 }

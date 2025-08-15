@@ -3,25 +3,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.dbConnect = void 0;
+exports.connectDB = connectDB;
 const mongoose_1 = __importDefault(require("mongoose"));
-const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config({ path: './.env' });
-const dbConnect = () => {
-    const databaseUrl = process.env.DATABASE_URL;
-    if (!databaseUrl) {
-        throw new Error("DATABASE_URL environment variable is not defined.");
+const MONGODB_URI = process.env.DB_URI;
+if (!MONGODB_URI) {
+    throw new Error("Please define the DB_URI environment variable in Vercel settings");
+}
+let cached = global.mongoose;
+if (!cached) {
+    cached = global.mongoose = { conn: null, promise: null };
+}
+async function connectDB() {
+    if (cached.conn)
+        return cached.conn;
+    if (!cached.promise) {
+        cached.promise = mongoose_1.default.connect(MONGODB_URI, {
+            bufferCommands: false
+        }).then((mongoose) => mongoose);
     }
-    mongoose_1.default.connect(databaseUrl, {}).then(() => {
-        console.log("Database connected");
-    }).catch((error) => {
-        console.log("databse connection failed....", error);
-    });
-    const db = mongoose_1.default.connection;
-    db.on("error", console.error.bind(console, "connection error:"));
-    db.once("open", () => {
-        console.log(`Database connected `);
-    });
-};
-exports.dbConnect = dbConnect;
+    cached.conn = await cached.promise;
+    return cached.conn;
+}
 //# sourceMappingURL=dbConnect.js.map

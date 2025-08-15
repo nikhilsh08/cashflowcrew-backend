@@ -13,6 +13,10 @@ const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const compression_1 = __importDefault(require("compression"));
 const user_routes_1 = __importDefault(require("./routes/cashflow/user-routes"));
 const payment_routes_1 = __importDefault(require("./routes/cashflow/payment-routes"));
+const PORT = process.env.PORT || 3000;
+exports.app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
 // Apply middleware first
 exports.app.use(express_1.default.json());
 exports.app.use((0, cookie_parser_1.default)());

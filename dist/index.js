@@ -4,16 +4,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config({ path: "./.env" });
+dotenv_1.default.config();
 const app_1 = require("./app");
 const dbConnect_1 = require("./config/cashflow/dbConnect");
+// Handle unexpected exceptions
 process.on("uncaughtException", (err) => {
-    console.log(err.name, err.message);
-    console.log("Uncaught Exception occured! Shutting down...");
+    console.error(err.name, err.message);
+    console.error("Uncaught Exception occurred! Shutting down...");
     process.exit(1);
 });
-(0, dbConnect_1.dbConnect)();
-const index = app_1.app.listen(process.env.PORT, () => {
-    console.log(`index has started... on PORT ${process.env.PORT} in ${process.env.NODE_ENV} mode.`);
-});
+(async () => {
+    await (0, dbConnect_1.connectDB)();
+})();
+exports.default = app_1.app; // ✅ Required for Vercel serverless
 //# sourceMappingURL=index.js.map

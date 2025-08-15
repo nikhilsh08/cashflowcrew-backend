@@ -1,17 +1,17 @@
-import dotenv from "dotenv"
-dotenv.config({ path: "./.env" });
-import {app} from "./app";
-import { dbConnect } from "./config/cashflow/dbConnect";
+import dotenv from "dotenv";
+dotenv.config();
+import { app } from "./app";
+import { connectDB } from "./config/cashflow/dbConnect";
 
+// Handle unexpected exceptions
 process.on("uncaughtException", (err) => {
-  console.log(err.name, err.message);
-  console.log("Uncaught Exception occured! Shutting down...");
+  console.error(err.name, err.message);
+  console.error("Uncaught Exception occurred! Shutting down...");
   process.exit(1);
 });
-dbConnect();
 
-const index = app.listen(process.env.PORT, () => {
-  console.log(
-    `index has started... on PORT ${process.env.PORT} in ${process.env.NODE_ENV} mode.`
-  );
-});
+(async () => {
+  await connectDB();
+})();
+
+export default app; // ✅ Required for Vercel serverless
