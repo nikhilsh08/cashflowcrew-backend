@@ -28,9 +28,9 @@ app.use(
 );
 //  write for only for / for 
 
-app.use("/", (req, res) => {
-  res.send("Welcome to the Cash Flow Crew API");
-});
+// app.use("/", (req, res) => {
+//   res.send("Welcome to the Cash Flow Crew API");
+// });
 
 // User routes
 app.use("/api/v1/users", userRoutes);

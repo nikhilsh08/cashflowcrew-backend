@@ -11,6 +11,7 @@ const masterclassSchema = new mongoose.Schema({
   duration: { type: String, required: true },
   price: { type: Number, required: true },
   location: { type: String, required: true },
+  meeting_link: { type: String, required: true },
   currency: { type: String, required: true },
   
 }, { timestamps: true });

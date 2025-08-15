@@ -28,9 +28,9 @@ exports.app.use((0, cors_1.default)({
     credentials: true,
 }));
 //  write for only for / for 
-exports.app.use("/", (req, res) => {
-    res.send("Welcome to the Cash Flow Crew API");
-});
+// app.use("/", (req, res) => {
+//   res.send("Welcome to the Cash Flow Crew API");
+// });
 // User routes
 exports.app.use("/api/v1/users", user_routes_1.default);
 // payment routes
