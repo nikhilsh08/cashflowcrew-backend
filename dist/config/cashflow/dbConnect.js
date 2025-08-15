@@ -5,9 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.connectDB = connectDB;
 const mongoose_1 = __importDefault(require("mongoose"));
-const MONGODB_URI = process.env.DB_URI;
-if (!MONGODB_URI) {
-    throw new Error("Please define the DB_URI environment variable in Vercel settings");
+const MONGODATABASE_URL = process.env.DATABASE_URL;
+if (!MONGODATABASE_URL) {
+    throw new Error("Please define the DATABASE_URL environment variable in Vercel settings");
 }
 let cached = global.mongoose;
 if (!cached) {
@@ -17,7 +17,7 @@ async function connectDB() {
     if (cached.conn)
         return cached.conn;
     if (!cached.promise) {
-        cached.promise = mongoose_1.default.connect(MONGODB_URI, {
+        cached.promise = mongoose_1.default.connect(MONGODATABASE_URL, {
             bufferCommands: false
         }).then((mongoose) => mongoose);
     }
