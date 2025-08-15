@@ -10,8 +10,8 @@ process.on("uncaughtException", (err) => {
 });
 dbConnect();
 
-const server = app.listen(process.env.PORT, () => {
+const index = app.listen(process.env.PORT, () => {
   console.log(
-    `server has started... on PORT ${process.env.PORT} in ${process.env.NODE_ENV} mode.`
+    `index has started... on PORT ${process.env.PORT} in ${process.env.NODE_ENV} mode.`
   );
 });
