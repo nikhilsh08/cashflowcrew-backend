@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateUser = exports.userRegister = exports.userRegisteration = void 0;
+exports.getUserById = exports.updateUser = exports.userRegister = exports.userRegisteration = void 0;
 const Users_1 = __importDefault(require("../../model/Users"));
 const Coupon_1 = __importDefault(require("../../model/Coupon"));
 const userRegisteration = async (req, res) => {
@@ -90,4 +90,26 @@ const updateUser = async (req, res) => {
     }
 };
 exports.updateUser = updateUser;
+const getUserById = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const user = await Users_1.default.findOne({ orderId: id });
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
+        res.status(200).json({
+            message: "User retrieved successfully",
+            user
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            message: "Error retrieving user",
+            error: error instanceof Error ? error.message : String(error)
+        });
+    }
+};
+exports.getUserById = getUserById;
 //# sourceMappingURL=user-controller.js.map

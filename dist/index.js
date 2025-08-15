@@ -14,7 +14,16 @@ process.on("uncaughtException", (err) => {
     process.exit(1);
 });
 (async () => {
-    await (0, dbConnect_1.connectDB)();
+    try {
+        await (0, dbConnect_1.connectDB)();
+        const PORT = process.env.PORT || 3000;
+        app_1.app.listen(PORT, () => {
+            console.log(`Server running on port ${PORT}`);
+        });
+    }
+    catch (err) {
+        console.error("Failed to connect to database:", err);
+        process.exit(1);
+    }
 })();
-exports.default = app_1.app; // ✅ Required for Vercel serverless
 //# sourceMappingURL=index.js.map
