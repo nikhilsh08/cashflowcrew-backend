@@ -34,6 +34,24 @@ const userSchema = new mongoose.Schema(
     transaction:{
       type:Boolean,
       default:false
+    },
+    EventTime: {
+      type: Date
+    },
+    Event: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Masterclass"
+    },
+    Value: {
+      type: Number
+    },
+    Currency: {
+      type: String
+    },
+    role: {
+      type: String,
+      enum: ["user", "admin"],
+      default: "user"
     }
   },
   { timestamps: true }

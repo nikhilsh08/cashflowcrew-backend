@@ -37,6 +37,24 @@ const userSchema = new mongoose_1.default.Schema({
     transaction: {
         type: Boolean,
         default: false
+    },
+    EventTime: {
+        type: Date
+    },
+    Event: {
+        type: mongoose_1.default.Schema.Types.ObjectId,
+        ref: "Masterclass"
+    },
+    Value: {
+        type: Number
+    },
+    Currency: {
+        type: String
+    },
+    role: {
+        type: String,
+        enum: ["user", "admin"],
+        default: "user"
     }
 }, { timestamps: true });
 const User = mongoose_1.default.model("User", userSchema);
